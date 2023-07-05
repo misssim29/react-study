@@ -1,0 +1,5 @@
+리액트 설치
+(node.js랑 npx 설치되어있어야함)
+
+npx create-react-app 프로젝트이름
+
