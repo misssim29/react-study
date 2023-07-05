@@ -1,0 +1,29 @@
+01. useState
+
+import React, { useState } from 'react';
+const [count, setCount] = useState(0);
+
+useState를 쓸때는 위와같이 useState를 react에서 가져와야함
+
+02.Props
+
+상위 컴포넌트에서 템플릿구문에 props를 내려줌
+<Counter initialValue={number} />
+
+03.children
+컴포넌트를 children으로 아래와같이 템플릿안에 내용을 넣을때
+//상위
+<Container>
+    <div className="App">
+        <Counter {...counterProps} />
+    </div>
+</Container>
+//껍데기 컴포넌트
+const Container = ({children}) =>{
+    return(
+        <div style={{margin:20, padding:20, border:"1px solid #222"}}>
+            {children}
+        </div>
+    )
+}
+export default Container
