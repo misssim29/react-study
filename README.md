@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 리액트설치설명
 
-## Available Scripts
+### `리액트 설치`
+(node.js랑 npx 설치되어있어야함)
 
-In the project directory, you can run:
+npx create-react-app 프로젝트이름
+(vue에서 vue-cli 역할)
 
-### `npm start`
+### `브라우저세팅`
+크롬 확장프로그램에서
+React developer tools 라는 확장프로그램 받기
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 리액트 메모
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `useState`
 
-### `npm test`
+import React, { useState } from 'react';
+const [count, setCount] = useState(0);
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+useState를 쓸때는 위와같이 useState를 react에서 가져와야함
 
-### `npm run build`
+### `Props`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+상위 컴포넌트에서 템플릿구문에 props를 내려줌
+<Counter initialValue={number} />
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `children`
+컴포넌트를 children으로 아래와같이 템플릿안에 내용을 넣을때
+//상위
+<Container>
+    <div className="App">
+        <Counter {...counterProps} />
+    </div>
+</Container>
+//껍데기 컴포넌트
+const Container = ({children}) =>{
+    return(
+        <div style={{margin:20, padding:20, border:"1px solid #222"}}>
+            {children}
+        </div>
+    )
+}
+export default Container
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `useRef`
+포커스 기능 쓸때 사용
+const contentInput = useRef();
+contentInput.current.focus();
+//태그 속성으로
+ref={contentInput}
 
-### `npm run eject`
+### `map()`
+가져온 배열을 map으로 하나씩 보여줌
+vue에서 v-for=item in List와 같은 역할
+{diaryList.map((it) =>(
+    <div>
+        <div>작성자 : {it.author}</div>
+    </div>
+))}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `배열 못가져올때 디폴트값 설정하기`
+함수에 defaultProps 추가해서 설정해주기
+DiaryList.defaultProps={
+    diaryList : [],
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `map쓸때 key값 설정`
+가장 상위 div에
+ key={it.id} 추가
+ id값이 배열중에 없다면 그냥 idx을 넣어도 무방
+{diaryList.map((it) =>(
+<div key={it.id}>
+    <div>작성자 : {it.author}</div>
+    <div>일기 : {it.content}</div>
+    <div>감정 : {it.emotion}</div>
+    <div>작성 시간(ms) : {it.create_date}</div>
+</div>
+))}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### `useEffect`
+라이프사이클을 관리하는 기능
+MOUNT돼었을때 주는 기능(ON.READY같은거,새로고침)
+    const [count,setCount] = useState(0);
+    const [text,setText] = useState("");
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    //처음 mount시
+    useEffect(()=>{
+        console.log("Mount!");
+    },[]);
 
-## Learn More
+    //업데이트시
+    useEffect(() =>{
+        console.log("update");
+    });
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    //usestate가 변할때만 감지해서 작동시킬수 있음
+    useEffect(()=>{
+        console.log(`count is update : ${count}`);
+        if(count > 5){
+            alert("count가 5를 넘었습니다 따라서 1로 초기화합니다.");
+            setCount(1);
+        }
+    },[count]);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### `useMemo`
+연산최적화 역활, 어떤값이 변화할때만 함수를 작용하고싶을때 쓴다
+단, 주의할점은 useMemo를 쓸 경우 변수가 함수가 아니라 그대로 값을 return해서
+불러올때 func()가 아니라 func 자체로 가져와야한다.
+	const getDiaryAnalysis = useMemo(() =>{
+		console.log("일기 분석 시작");
+		const goodCount = data.filter((it)=>it.emotion>=3).length;
+		const badCount = data.length - goodCount;
+		const goodRatio = (goodCount / data.length) * 100;
+		return {goodCount,badCount,goodRatio};
+	},[data.length]);
+    const {goodCount, badCount, goodRatio} = getDiaryAnalysis;
