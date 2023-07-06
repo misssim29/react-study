@@ -88,3 +88,15 @@ MOUNT돼었을때 주는 기능(ON.READY같은거,새로고침)
         }
     },[count]);
 
+09.useMemo
+연산최적화 역활, 어떤값이 변화할때만 함수를 작용하고싶을때 쓴다
+단, 주의할점은 useMemo를 쓸 경우 변수가 함수가 아니라 그대로 값을 return해서
+불러올때 func()가 아니라 func 자체로 가져와야한다.
+	const getDiaryAnalysis = useMemo(() =>{
+		console.log("일기 분석 시작");
+		const goodCount = data.filter((it)=>it.emotion>=3).length;
+		const badCount = data.length - goodCount;
+		const goodRatio = (goodCount / data.length) * 100;
+		return {goodCount,badCount,goodRatio};
+	},[data.length]);
+    const {goodCount, badCount, goodRatio} = getDiaryAnalysis;

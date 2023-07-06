@@ -1,5 +1,5 @@
 import DiaryItem from './diaryItem.js';
-const DiaryList = ({diaryList,onRemove,onEdit}) =>{
+const DiaryList = ({diaryList,onRemove,onEdit,getData}) =>{
     return(
         <div className="DiaryList">
             <h2>일기 리스트</h2>

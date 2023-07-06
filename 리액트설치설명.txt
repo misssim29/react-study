@@ -2,4 +2,9 @@
 (node.js랑 npx 설치되어있어야함)
 
 npx create-react-app 프로젝트이름
+(vue에서 vue-cli 역할)
+
+##브라우저세팅
+크롬 확장프로그램에서
+React developer tools 라는 확장프로그램 받기
 
