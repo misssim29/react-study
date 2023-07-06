@@ -27,3 +27,64 @@ const Container = ({children}) =>{
     )
 }
 export default Container
+
+04.useRef
+포커스 기능 쓸때 사용
+const contentInput = useRef();
+contentInput.current.focus();
+//태그 속성으로
+ref={contentInput}
+
+05.map()
+가져온 배열을 map으로 하나씩 보여줌
+vue에서 v-for=item in List와 같은 역할
+{diaryList.map((it) =>(
+    <div>
+        <div>작성자 : {it.author}</div>
+    </div>
+))}
+
+06.배열 못가져올때 디폴트값 설정하기
+함수에 defaultProps 추가해서 설정해주기
+DiaryList.defaultProps={
+    diaryList : [],
+}
+
+07.map쓸때 key값 설정
+가장 상위 div에
+ key={it.id} 추가
+ id값이 배열중에 없다면 그냥 idx을 넣어도 무방
+{diaryList.map((it) =>(
+<div key={it.id}>
+    <div>작성자 : {it.author}</div>
+    <div>일기 : {it.content}</div>
+    <div>감정 : {it.emotion}</div>
+    <div>작성 시간(ms) : {it.create_date}</div>
+</div>
+))}
+
+08.useEffect
+라이프사이클을 관리하는 기능
+MOUNT돼었을때 주는 기능(ON.READY같은거,새로고침)
+    const [count,setCount] = useState(0);
+    const [text,setText] = useState("");
+
+    //처음 mount시
+    useEffect(()=>{
+        console.log("Mount!");
+    },[]);
+
+    //업데이트시
+    useEffect(() =>{
+        console.log("update");
+    });
+
+    //usestate가 변할때만 감지해서 작동시킬수 있음
+    useEffect(()=>{
+        console.log(`count is update : ${count}`);
+        if(count > 5){
+            alert("count가 5를 넘었습니다 따라서 1로 초기화합니다.");
+            setCount(1);
+        }
+    },[count]);
+
