@@ -210,3 +210,61 @@ const onCreate = useCallback((author,content,emotion) => {
     // setData로 기존의 data를 넘겨주기때문에 뒤에 []값을 비워서 렌더링을 막을수 있다.
 },[]);
 ```
+
+### useReducer
+useState가 여러개 쓰일때 쓸 수 있는 상태관리 기능
+```
+const reducer = (state,action) =>{
+	switch(action.type){
+		case 'INIT' :{
+			return action.data;
+		}
+		case 'CREATE':
+			const created_date = new Date().getTime();
+			const newItem = {
+				...action.data,
+				created_date
+			}
+			return [newItem,...state];
+		case 'REMOVE':
+			return state.filter((it)=>it.id !== action.targetId);
+		case 'EDIT':
+			return state.map((it) => it.id === action.targetId ? {...it,content: action.newContent} : it);
+		default:
+			return state;
+	}
+}
+	const onCreate = useCallback((author,content,emotion) => {
+		dataId.current++;
+		dispatch({type:'CREATE',data:{
+			author,
+			content,
+			emotion,
+			id:dataId.current,
+		}});
+	},[]);
+	const onRemove = useCallback((targetId) => {
+		dispatch({type:'REMOVE',data:targetId});
+	},[]);
+	const onEdit = useCallback((targetId,newContent) => {
+		dispatch({type:'EDIT',targetId,newContent});
+	},[]);
+```
+
+### createContext
+```
+export const DiaryStateContext = React.createContext();
+	return (
+		<DiaryStateContext.Provider value={data}>
+		<div className="App">
+			<DiaryEditor onCreate={onCreate} />
+			<div>전체 일기 : {data.length}</div>
+			<div>기분 좋은 일기 개수 : {goodCount}</div>
+			<div>기분 나쁜 일기 개수 : {badCount}</div>
+			<div>기분 좋은 일기 비율 : {goodRatio}</div>
+			<DiaryList onRemove={onRemove} onEdit={onEdit} />
+		</div>
+		</DiaryStateContext.Provider>
+	);
+```
+
