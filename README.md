@@ -131,6 +131,7 @@ const getDiaryAnalysis = useMemo(() =>{
 const {goodCount, badCount, goodRatio} = getDiaryAnalysis;
 ```
 
+<<<<<<< HEAD
 ### 함수형 컴포넌트에 업데이트 조건을 거는 방법(최적화)
 React.memo(({text})=>{})  
 를 통해서 text값이 바뀌면 리렌더링 하도록 설정
@@ -324,3 +325,6 @@ process.env.PUBLIC_URL
 
 
 
+=======
+### 함수형 컴포넌트에 업데이트 조건을 거는 방법
+>>>>>>> 2934e490fc0704ea72caa8cec9ac07e671a54b8f
