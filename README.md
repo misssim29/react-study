@@ -268,3 +268,59 @@ export const DiaryStateContext = React.createContext();
 	);
 ```
 
+### router 설치하는법
+npm i react-router-dom@6
+
+### router 기본사용법
+app에서 view로 아래와같이 넣어준다,
+```
+<Route path='/edit' element={<Edit />} />
+```
+컴포넌트에서 링크 부분은 아래와같이 넣어준다
+```
+import { Link } from 'react-router-dom';
+<Link to={'/edit'}>Edit</Link>
+```
+
+### useParams 파라메터값 추출하는법
+```
+<Route path='/diary/:id' element={<Diary />} />
+import { useParams } from "react-router-dom";
+const {id} = useParams();
+```
+
+### query string 전달하는법
+useSearchParams를 통해서 가져올 수 있다.
+setSearchParams를 통해 쿼리를 변경시킬수도있다.
+
+```
+import { useSearchParams } from "react-router-dom";
+const [searchParams, setSearchParams] = useSearchParams();
+const id = searchParams.get('id');
+<button onClick={()=>setSearchParams({who:"juyeon"})}>QS 바꾸기</button>
+```
+
+### js쪽에서 link를 바꾸고싶을때
+useNavigate를 통해서 링크를 바꿔줄수있다.
+```
+const navigate = useNavigate();
+const hoHome = () => {
+    navigate("/home");
+}
+<button onClick={goHome}>
+    홈으로가기
+</button>
+```
+뒤로가기
+```
+navigate(-1);
+```
+
+### img태그 쓸때 경로 가져오기
+process.env.PUBLIC_URL
+```
+<img src={process.env.PUBLIC_URL + `/assets/emotion1.png`} />
+```
+
+
+
