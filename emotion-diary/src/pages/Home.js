@@ -7,11 +7,10 @@ import { DiaryStateContext } from '../App';
 const Home = () =>{
 
     const diaryList = useContext(DiaryStateContext);
+    
     const [data,setData] = useState([]);
-
     const [curDate, setCurDate] = useState(new Date());
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth()+1}월`;
-
     useEffect(()=>{
         if(diaryList.length >= 1){
             const firstDay = new Date(
@@ -22,7 +21,11 @@ const Home = () =>{
             const lastDay = new Date(
                 curDate.getFullYear(),
                 curDate.getMonth() +1,
-                0
+                0,
+                // 31일을 표현하려면 23,59,59를 써야함
+                23,
+                59,
+                59
             ).getTime();
             setData(diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay));
         }

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import MyButton from "./MyButton";
+import React from "react";
 
 const DiaryItem = ({id,emotion,content,date}) =>{
 
@@ -21,7 +22,7 @@ const DiaryItem = ({id,emotion,content,date}) =>{
     return(
         <div className="DiaryItem">
             <div className={["emotion_img_wrapper", `emotion_img_wrapper_${emotion}`].join(" ")} onClick={goDetail}>
-                <img src={process.env.PUBLIC_URL + `assets/emotion${emotion}.png`} />
+                <img src={process.env.PUBLIC_URL + `assets/emotion${emotion}.png`} alt="감정" />
             </div>
             <div className="info_wrapper" onClick={goDetail}>
                 <div className="diary_date">
@@ -35,4 +36,4 @@ const DiaryItem = ({id,emotion,content,date}) =>{
         </div>
     )
 }
-export default DiaryItem
+export default React.memo(DiaryItem);

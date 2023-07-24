@@ -214,6 +214,7 @@ const onCreate = useCallback((author,content,emotion) => {
 ### useReducer
 useState가 여러개 쓰일때 쓸 수 있는 상태관리 기능
 ```
+const [data,dispatch] = useReducer(reducer,[]);
 const reducer = (state,action) =>{
 	switch(action.type){
 		case 'INIT' :{
@@ -266,6 +267,22 @@ export const DiaryStateContext = React.createContext();
 		</div>
 		</DiaryStateContext.Provider>
 	);
+```
+
+### useContext
+전역 상태 관리
+위와같은 createContext로 객체 생성 가장 상위에 provider로 감싸주기
+위에서 value값으로 넣은 데이터를 useContext로 가져온다
+```
+const data = useContext(DiaryStateContext);
+```
+provider에서 아래와같이 하면 함수도 전역상태로 쓸 수 있다(dispatch역할)
+```
+<DiaryDispatchContext.Provider value={{
+onCreate,
+onEdit,
+onRemove,
+}}>
 ```
 
 ### router 설치하는법
